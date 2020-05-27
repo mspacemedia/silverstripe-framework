@@ -406,14 +406,14 @@ class CsvBulkLoader extends BulkLoader
 
         foreach ($this->duplicateChecks as $fieldName => $duplicateCheck) {
             $existingRecord = null;
-            if (is_string($duplicateCheck)) {
+            if (is_string($fieldName)) {
                 // Skip current duplicate check if field value is empty
-                if (empty($record[$duplicateCheck])) {
+                if (empty($record[$fieldName])) {
                     continue;
                 }
 
                 // Check existing record with this value
-                $dbFieldValue = $record[$duplicateCheck];
+                $dbFieldValue = $record[$fieldName];
                 $existingRecord = DataObject::get($this->objectClass)
                     ->filter($duplicateCheck, $dbFieldValue)
                     ->first();
